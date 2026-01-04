@@ -1,0 +1,266 @@
+/* Estilos responsive para flujo_caja.php */
+:root {
+  --border: #e6e6e6;
+  --muted: #6b6b6b;
+  --bg: #fff;
+  --gap: 12px;
+  --card-radius: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.page-header h1 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+/* Tabla contenedor */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+.table-flujo {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+}
+.table-flujo th,
+.table-flujo td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+  text-align: right;
+  font-size: 0.95rem;
+}
+.table-flujo th:first-child,
+.table-flujo td:first-child {
+  text-align: left;
+}
+.table-flujo thead th {
+  background: #fafafa;
+  font-weight: 700;
+  color: var(--muted);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* filas destacadas */
+.row-highlight td {
+  background: #fff;
+}
+.row-success td {
+  background: rgba(76, 175, 80, 0.05);
+}
+.row-danger td {
+  background: rgba(244, 67, 54, 0.04);
+}
+.row-total td {
+  background: #fafafa;
+  font-weight: 700;
+}
+
+/* Gráfico responsive */
+.chart-responsive {
+  width: 100%;
+  max-width: 100%;
+  height: 320px;
+  margin-top: 14px;
+}
+.chart-responsive canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* Small screens: convertir tabla a tarjetas (cards) */
+@media (max-width: 760px) {
+  .table-flujo {
+    min-width: unset;
+  }
+  .table-flujo thead {
+    display: none;
+  }
+  .table-flujo tbody,
+  .table-flujo tr {
+    display: block;
+  }
+  .table-flujo tr {
+    display: block;
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius);
+    margin-bottom: 10px;
+    padding: 10px;
+    background: var(--bg);
+  }
+  .table-flujo td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 8px;
+    border-bottom: none;
+    white-space: normal;
+    font-size: 0.95rem;
+  }
+
+  /* Etiquetas generadas según columna */
+  .table-flujo td:nth-child(1)::before {
+    content: "Descripción";
+    font-weight: 600;
+    color: var(--muted);
+    margin-right: 8px;
+  }
+  .table-flujo td:nth-child(n + 2)::before {
+    content: attr(data-label);
+    display: none;
+  } /* fallback */
+
+  /* Forzar que los valores numéricos estén a la derecha */
+  .table-flujo td:nth-child(n + 2) {
+    justify-content: flex-end;
+    font-weight: 600;
+  }
+
+  /* Totales como bloque final */
+  .row-total {
+    display: block;
+    margin: 0;
+    padding: 8px 6px;
+  }
+  .row-total td {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 8px;
+  }
+
+  /* Reducir altura del gráfico en móvil */
+  .chart-responsive {
+    height: 220px;
+  }
+}
+
+/* Ajustes visuales */
+.text-right {
+  text-align: right;
+}
+.text-success {
+  color: #2e7d32;
+}
+.text-danger {
+  color: #c62828;
+}
+
+/* Ajustes para móvil: tarjetas desde la tabla, etiquetas dinámicas y gráfico más pequeño */
+.chart-responsive {
+  width: 100%;
+  max-width: 100%;
+  height: 320px;
+  margin-top: 14px;
+}
+.chart-responsive canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* Make inline select responsive */
+.form-control-inline {
+  display: inline-block;
+  min-width: 140px;
+}
+@media (max-width: 760px) {
+  .form-control-inline {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .table-flujo {
+    min-width: unset;
+  }
+  .table-flujo thead {
+    display: none;
+  }
+  .table-flujo tbody,
+  .table-flujo tr {
+    display: block;
+  }
+  .table-flujo tr {
+    display: block;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    padding: 10px;
+    background: var(--card-bg);
+    box-shadow: var(--shadow-sm);
+  }
+  .table-flujo td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    border-bottom: none;
+    white-space: normal;
+    font-size: 0.95rem;
+  }
+  /* etiqueta tomada desde data-label para evitar nth-child frágil */
+  .table-flujo td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--muted);
+    margin-right: 12px;
+    flex: 0 0 auto;
+    width: 38%;
+    max-width: 160px;
+  }
+  .table-flujo td span.value {
+    flex: 1 1 auto;
+    text-align: right;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .row-total td::before {
+    color: var(--text-primary);
+  }
+  .row-total td span.value {
+    color: inherit;
+  }
+
+  /* ajustar gráfico en móvil */
+  .chart-responsive {
+    height: 220px;
+  }
+
+  /* reducir padding general para móviles muy pequeños */
+  @media (max-width: 420px) {
+    .chart-responsive {
+      height: 180px;
+    }
+    .table-flujo td::before {
+      width: 40%;
+      font-size: 0.88rem;
+    }
+    .table-flujo td {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+/* Fallback: asegurar contraste de valores positivos/negativos */
+.text-success {
+  color: #16a34a !important;
+  font-weight: 700;
+}
+.text-danger {
+  color: #ef4444 !important;
+  font-weight: 700;
+}
